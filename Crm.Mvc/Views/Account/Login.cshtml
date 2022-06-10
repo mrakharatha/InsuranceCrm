@@ -1,0 +1,116 @@
+﻿@model Crm.Domain.ViewModel.Account.LoginViewModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html class="loading" lang="fa" data-textdirection="rtl" dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>صفحه ورود</title>
+    <meta name="theme-color" content="#5A8DEE">
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/pages/authentication.css">
+
+</head>
+
+<body class="vertical-layout vertical-menu-modern semi-dark-layout 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column" data-layout="semi-dark-layout">
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <section id="auth-login" class="row flexbox-container">
+                    <div class="col-xl-8 col-11">
+                        <div class="card bg-authentication mb-0">
+                            <div class="row m-0">
+                                <div class="col-md-6 col-12 px-0">
+                                    <div class="card disable-rounded-right mb-0 p-2 h-100 d-flex justify-content-center">
+                                        <div class="card-header pb-1">
+                                            <div class="card-title">
+                                                <h4 class="text-center mb-2">خوش آمدید</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <div class="divider">
+                                                    <div class="divider-text text-uppercase text-muted">
+                                                        <small>سامانه مدیریت مشتریان</small>
+                                                    </div>
+                                                </div>
+                                                <form method="post">
+                                                    <input type="hidden" value="@ViewBag.returnUrl" asp-for="ReturnUrl" />
+
+                                                    <div class="form-group mb-50">
+                                                        <label asp-for="UserName"></label>
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="text" class="form-control" asp-for="UserName">
+                                                            <span asp-validation-for="UserName" class="text-danger"></span>
+
+                                                            <div class="form-control-position">
+                                                                <i class="bx bxs-user"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Password"> </label>
+                                                        <div class="position-relative has-icon-left">
+                                                            <input type="password" class="form-control" asp-for="Password">
+                                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                                            <div class="form-control-position">
+                                                                <i class="bx bx-lock"></i>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
+                                                        <div class="text-left">
+                                                            <div class="checkbox checkbox-sm">
+                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1" asp-for="RememberMe">
+                                                                <label class="checkboxsmall" for="exampleCheck1"> <small>مرا به خاطر بسپار</small></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary glow w-100 position-relative">ورود<i id="icon-arrow" class="bx bx-left-arrow-alt"></i></button>
+                                                </form>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
+                                    <div class="card-content">
+                                        <img class="img-fluid" src="/assets/images/pages/login.png" alt="branding logo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+<script src="/assets/vendors/js/vendors.min.js"></script>
+    <script src="/assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.min.js"></script>
+    <script src="/assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
+    <script src="/assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+<script src="/assets/js/scripts/configs/vertical-menu-dark.js"></script>
+    <script src="/assets/js/core/app-menu.js"></script>
+    <script src="/assets/js/core/app.js"></script>
+    <script src="/assets/js/scripts/components.js"></script>
+    <script src="/assets/js/scripts/footer.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

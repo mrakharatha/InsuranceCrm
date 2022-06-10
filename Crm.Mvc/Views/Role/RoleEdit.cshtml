@@ -1,0 +1,197 @@
+﻿@using Crm.Domain.Models.Permissions
+@model Crm.Domain.Models.Permissions.Role
+@{
+    ViewData["Title"] = "ویرایش نقش";
+    var permissions = ViewData["Permissions"] as List<Permission>;
+    var selectedPermissions = ViewData["SelectedPermissions"] as List<int>;
+
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Role" asp-action="Index">لیست نقش ها</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">ویرایش نقش</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">چند ستون</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form class="form" method="post">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="panel panel-primary">
+                                    <input type="hidden" asp-for="RoleId" />
+                                    <input type="hidden" asp-for="CreateDate" />
+
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <input placeholder="عنوان نقش" type="text" asp-for="RoleTitle" class="form-control">
+                                            <span asp-validation-for="RoleTitle" class="text-danger"></span>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label> توضیحات</label>
+                                            <textarea class="form-control" asp-for="Description"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="checkbox checkbox-primary checkbox-glow">
+                                    <input type="checkbox" class="custom-control-input" id="changes"  onchange="change()">
+                                    <label class="custom-control-label mr-1" for="changes">انتخاب همه</label>
+                                </div>
+                                <div class="panel panel-primary">
+
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <ul>
+                                            @foreach (var permission in permissions.Where(p => p.ParentId == null))
+                                            {
+                                                <li>
+                                                    <div class="checkbox checkbox-primary checkbox-glow">
+                                                        <input type="checkbox" class="custom-control-input" @((selectedPermissions.Any(p => p == permission.PermissionId) ? "Checked" : "")) name="selectedPermission" value="@permission.PermissionId" id="@permission.PermissionId">
+                                                        <label class="custom-control-label mr-1" for="@permission.PermissionId"></label>
+                                                        <span class="switch-label"> @permission.Title </span>
+                                                    </div>
+
+                                                    @if (permissions.Any(p => p.ParentId == permission.PermissionId))
+                                                    {
+                                                        <ul>
+                                                            @foreach (var sub in permissions.Where(p => p.ParentId == permission.PermissionId))
+                                                            {
+                                                                <li>
+                                                                    <div class="checkbox checkbox-primary checkbox-glow">
+                                                                        <input type="checkbox" class="custom-control-input" @((selectedPermissions.Any(p => p == sub.PermissionId) ? "Checked" : "")) name="selectedPermission" value="@sub.PermissionId" id="@sub.PermissionId">
+                                                                        <label class="custom-control-label mr-1" for="@sub.PermissionId"></label>
+                                                                        <span class="switch-label"> @sub.Title </span>
+                                                                    </div>
+
+                                                                    @if (permissions.Any(p => p.ParentId == sub.PermissionId))
+                                                                    {
+                                                                        <ul>
+                                                                            @foreach (var sub2 in permissions.Where(p => p.ParentId == sub.PermissionId))
+                                                                            {
+                                                                                <li>
+
+                                                                                    <div class="checkbox checkbox-primary checkbox-glow">
+                                                                                        <input type="checkbox" class="custom-control-input" @((selectedPermissions.Any(p => p == sub2.PermissionId) ? "Checked" : "")) name="selectedPermission" value="@sub2.PermissionId" id="@sub2.PermissionId">
+                                                                                        <label class="custom-control-label mr-1" for="@sub2.PermissionId"></label>
+                                                                                        <span class="switch-label"> @sub2.Title </span>
+                                                                                    </div>
+
+                                                                                    @if (permissions.Any(p => p.ParentId == sub2.PermissionId))
+                                                                                    {
+                                                                                        <ul>
+                                                                                            @foreach (var sub3 in permissions.Where(p => p.ParentId == sub2.PermissionId))
+                                                                                            {
+                                                                                                <li>
+
+                                                                                                    <div class="checkbox checkbox-primary checkbox-glow">
+                                                                                                        <input type="checkbox" class="custom-control-input" @((selectedPermissions.Any(p => p == sub3.PermissionId) ? "Checked" : "")) name="selectedPermission" value="@sub3.PermissionId" id="@sub3.PermissionId">
+                                                                                                        <label class="custom-control-label mr-1" for="@sub3.PermissionId"></label>
+                                                                                                        <span class="switch-label"> @sub3.Title </span>
+                                                                                                    </div>
+
+                                                                                                    @if (permissions.Any(p => p.ParentId == sub3.PermissionId))
+                                                                                                    {
+                                                                                                        <ul>
+                                                                                                            @foreach (var sub4 in permissions.Where(p => p.ParentId == sub3.PermissionId))
+                                                                                                            {
+                                                                                                                <li>
+
+                                                                                                                    <div class="checkbox checkbox-primary checkbox-glow">
+                                                                                                                        <input type="checkbox" class="custom-control-input" @((selectedPermissions.Any(p => p == sub4.PermissionId) ? "Checked" : "")) name="selectedPermission" value="@sub4.PermissionId" id="@sub4.PermissionId">
+                                                                                                                        <label class="custom-control-label mr-1" for="@sub4.PermissionId"></label>
+                                                                                                                        <span class="switch-label"> @sub4.Title </span>
+                                                                                                                    </div>
+                                                                                                                </li>
+
+
+                                                                                                            }
+
+                                                                                                        </ul>
+                                                                                                    }
+
+                                                                                                </li>
+
+
+                                                                                            }
+
+                                                                                        </ul>
+                                                                                    }
+
+                                                                                </li>
+
+
+                                                                            }
+
+                                                                        </ul>
+                                                                    }
+                                                                </li>
+                                                            }
+                                                        </ul>
+                                                    }
+
+
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Script
+{
+    <script>
+        function change() {
+
+            if ($('#changes').is(":checked")) {
+                $('input:checkbox').prop('checked', true);
+            } else {
+                $('input:checkbox').prop('checked', false);
+
+            }
+        }
+    </script>
+}

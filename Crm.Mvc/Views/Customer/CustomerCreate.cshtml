@@ -1,0 +1,284 @@
+﻿@model Crm.Domain.ViewModel.Customer.AddCustomerViewModel
+@using Crm.Application.Utilities
+@{
+    ViewData["Title"] = "افزودن مشتری";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Installment" asp-action="Index">لیست مشتری</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">افزودن مشتری</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12 col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">ثبت مشتری</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form class="form form-vertical" method="post">
+                    <input type="hidden" asp-for="UserId" value="@User.GetUserId()" />
+                    <div class="form-body">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FullName"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" class="form-control" asp-for="FullName">
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="NationalCode"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="number" class="form-control" asp-for="NationalCode">
+                                        <span asp-validation-for="NationalCode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class=" col-md-6">
+                                <label asp-for="MaritalStatusId"></label>
+                                <div class="form-group">
+                                    <select asp-for="MaritalStatusId" class="select2 form-control" asp-items="@(ViewData["MaritalStatus"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="MaritalStatusId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="number" class="form-control" asp-for="PhoneNumber">
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+                            
+                          
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="DateOfBirth"></label>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input autocomplete="off" readonly="readonly" type="text" class="form-control" asp-for="DateOfBirth">
+                                        <div class="form-control-position">
+                                            <i class="bx bx-calendar"></i>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="DateOfMarriageAnniversary"></label>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input autocomplete="off" readonly="readonly" type="text" class="form-control" asp-for="DateOfMarriageAnniversary">
+                                        <div class="form-control-position">
+                                            <i class="bx bx-calendar"></i>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="DateOfMarriageAnniversary" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="DateOfBirthSpouse"></label>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input autocomplete="off" readonly="readonly" type="text" class="form-control" asp-for="DateOfBirthSpouse">
+                                        <div class="form-control-position">
+                                            <i class="bx bx-calendar"></i>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="DateOfBirthSpouse" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class=" col-md-6">
+                                <label asp-for="ProvinceId"></label>
+                                <div class="form-group">
+                                    <select asp-for="ProvinceId" class="select2 form-control" asp-items="@(ViewData["Province"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="ProvinceId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class=" col-md-6">
+                                <label asp-for="TownshipId"></label>
+                                <div class="form-group">
+                                    <select asp-for="TownshipId" class="select2 form-control" asp-items="@(ViewData["Township"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="TownshipId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Address"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <textarea rows="3" autocomplete="off"  class="form-control" asp-for="Address"></textarea>
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Description"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <textarea rows="6" autocomplete="off"  class="form-control" asp-for="Description"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Customstyles
+{
+<link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/calender/kamadatepicker.min.css">
+
+}
+
+@section Script
+{
+
+<script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="/assets/js/scripts/forms/select/form-select2.js"></script>
+<script src="/assets/calender/kamadatepicker.min.js"></script>
+
+
+<script>
+    kamaDatepicker('@nameof(Model.DateOfBirth)', {
+        nextButtonIcon: "/assets/calender/1.png"
+        , previousButtonIcon: "/assets/calender/2.png"
+        , forceFarsiDigits: false
+        , markToday: true
+        , markHolidays: true
+        , highlightSelectedDay: true
+        , sync: true
+        , gotoToday: true
+    });
+
+
+
+    kamaDatepicker('@nameof(Model.DateOfMarriageAnniversary)', {
+        nextButtonIcon: "/assets/calender/1.png"
+        , previousButtonIcon: "/assets/calender/2.png"
+        , forceFarsiDigits: false
+        , markToday: true
+        , markHolidays: true
+        , highlightSelectedDay: true
+        , sync: true
+        , gotoToday: true
+    });
+    kamaDatepicker('@nameof(Model.DateOfBirthSpouse)', {
+        nextButtonIcon: "/assets/calender/1.png"
+        , previousButtonIcon: "/assets/calender/2.png"
+        , forceFarsiDigits: false
+        , markToday: true
+        , markHolidays: true
+        , highlightSelectedDay: true
+        , sync: true
+        , gotoToday: true
+    });
+
+</script>
+
+<script>
+    $("#ProvinceId").change(function () {
+        $("#TownshipId").empty();
+        $.getJSON("/Customer/GetTownship/" + $("#ProvinceId :selected").val(),
+            function (data) {
+
+                $.each(data,
+                    function () {
+                        $("#TownshipId").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+                    });
+
+            });
+    });
+</script>
+}

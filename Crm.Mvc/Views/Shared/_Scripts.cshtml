@@ -1,0 +1,25 @@
+﻿
+<script src="@Url.Content("/assets/vendors/js/vendors.min.js")"></script>
+<script src="@Url.Content("/assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.min.js")"></script>
+<script src="@Url.Content("/assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js")"></script>
+<script src="@Url.Content("/assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js")"></script>
+
+<script src="~/assets/js/scripts/configs/vertical-menu-dark.js"></script>
+<script src="~/assets/js/core/app-menu.js"></script>
+<script src="~/assets/js/core/app.js"></script>
+<script src="~/assets/js/scripts/components.js"></script>
+<script src="~/assets/js/scripts/footer.js"></script>
+<script src="~/assets/js/scripts/customizer.js"></script>
+<script src="~/assets/js/scripts/config.js"></script>
+
+
+<script>
+    $(document).ready(function (){
+        $("ul li").removeClass("menu-item-active");
+        let url = window.location.pathname;
+        let action = url.split('/');
+        let par = $('a[href*="'+action[1]+'"]').first().parent();
+        par.addClass("active");
+        par.parent().parent().addClass("has-sub open");
+    });
+</script>

@@ -1,0 +1,166 @@
+﻿@using Crm.Domain.Convertors
+@using Crm.Application.Utilities
+@model List<Crm.Domain.Models.Insurance.TermInsurance>
+@{
+
+    ViewData["Title"] = "مدت بیمه نامه";
+    int cnt = 1;
+}
+
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            لیست مدت بیمه نامه
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Zero configuration table -->
+<section id="basic-datatable">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <a asp-controller="TermInsurance" asp-action="TermInsuranceCreate"  type="button" class="btn btn-primary round mr-1 mb-1">افزودن</a>
+                </div>
+                <div class="card-content">
+                    <div class="card-body card-dashboard">
+                        <div class="table-responsive">
+                            <table class="table zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>عنوان</th>
+                                        <th>کد</th>
+                                        <th>مقدار</th>
+                                        <th>نوع مدت بیمه نامه</th>
+                                        <th>تاریخ ثبت</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="TermInsurance_@(item.TermInsuranceId)">
+                                            <td>@cnt</td>
+                                            <td>@item.Title</td>
+                                            <td>@item.Code</td>
+                                            <td>@item.Value</td>
+                                            <td>@item.TypeSystemId.ToDisplay()</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>
+                                                <div class="dropup">
+                                                    <span style="padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
+                                                    </span>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" asp-controller="TermInsurance" asp-action="TermInsuranceEdit"  asp-route-id="@item.TermInsuranceId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+                                                        <a class="dropdown-item" onclick="DeleteTermInsurance(@item.TermInsuranceId)"><i class="bx bx-trash mr-1"></i> حذف</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        cnt++;
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Zero configuration table -->
+
+
+
+
+
+
+@section Customstyles
+{
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/css/tables/datatable/datatables.min.css">
+}
+
+
+@section Script
+{
+    <script src="/assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="/assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/js/scripts/datatables/datatable.js"></script>
+    <script src="/assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+
+
+}
+
+
+<script type="text/javascript">
+    function DeleteTermInsurance(id) {
+
+
+        Swal.fire({
+            title: 'آیا مطمئنید؟',
+            text: "این عمل قابل بازگشت نخواهد بود!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'تایید',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger ml-1',
+            cancelButtonText: 'انصراف',
+            buttonsStyling: false,
+        }).then(function (result) {
+            if (result.value) {
+                $.get("/TermInsurance/Delete/" + id,
+                    function (data)
+                    {
+                        if (data)
+                        {
+                            $("#TermInsurance_" + id).hide('slow');
+
+                            Swal.fire({
+                                type: "success",
+                                title: 'حذف شد!',
+                                text: 'مدت بیمه نامه  با موفقیت حذف شد',
+                                confirmButtonClass: 'btn btn-success',
+                                confirmButtonText: 'باشه',
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: "خطا!",
+                                text: "شما مجاز به دسترسی نیستید!",
+                                type: "error",
+                                confirmButtonClass: 'btn btn-primary',
+                                confirmButtonText: 'باشه',
+                                buttonsStyling: false,
+                            });
+                        }
+
+
+                    });
+            }
+        });
+
+    }
+
+</script>
+
+

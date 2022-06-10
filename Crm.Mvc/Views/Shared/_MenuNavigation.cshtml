@@ -1,0 +1,79 @@
+﻿@using Crm.Application.Interfaces
+@using Crm.Application.Utilities
+@inject IPermissionService _permissionService;
+
+<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+    <li class=" nav-item">
+        <a asp-controller="Home" asp-action="Index"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
+    </li>
+    
+    @if (_permissionService.CheckPermission(16, User.GetUserId()))
+    {
+        <li class=" nav-item">
+            <a asp-controller="Customer" asp-action="Index"><i class="menu-livicon" data-icon="user"></i><span class="menu-title" data-i18n="user">مشتریان</span></a>
+        </li>
+    }
+    
+    @if (_permissionService.CheckPermission(11, User.GetUserId()))
+    {
+        <li class=" nav-item">
+            <a href="#"><i class="menu-livicon" data-icon="check"></i><span class="menu-title" data-i18n="Charts"> تعاریف</span></a>
+            <ul class="menu-content">
+                @if (_permissionService.CheckPermission(12, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="MaritalStatus" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">وضعیت تاهل</span></a>
+                    </li>
+                } 
+                
+                @if (_permissionService.CheckPermission(20, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="Insurance" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">بیمه </span></a>
+                    </li>
+                } 
+                
+                @if (_permissionService.CheckPermission(24, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="PaymentMethod" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">روش پرداخت </span></a>
+                    </li>
+                } 
+                @if (_permissionService.CheckPermission(28, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="Installment" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">قسط</span></a>
+                    </li>
+                } 
+                @if (_permissionService.CheckPermission(32, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="TermInsurance" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">مدت بیمه نامه</span></a>
+                    </li>
+                } 
+               
+            </ul>
+        </li>
+    }
+
+    @if (_permissionService.CheckPermission(2, User.GetUserId())&&User.GetUserId()==1)
+    {
+        <li class=" nav-item">
+            <a href="#"><i class="menu-livicon" data-icon="gears"></i><span class="menu-title" data-i18n="Charts"> تنظییمات</span></a>
+            <ul class="menu-content">
+                @if (_permissionService.CheckPermission(3, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="User" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">کاربران</span></a>
+                    </li>
+                } 
+                @if (_permissionService.CheckPermission(7, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="Role" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">دسترسی ها</span></a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

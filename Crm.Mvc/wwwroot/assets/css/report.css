@@ -1,0 +1,19 @@
+﻿body {
+    direction: rtl;
+    text-align: right
+}
+.titleReport {
+    margin-top: 20px;
+    font-size: 20px;
+
+}
+.headerReport {
+    margin-top: 32px;
+    margin-bottom: 100px;
+
+}
+.headerTime {
+    float: left;
+    margin-left: 25px;
+    margin-top: 13px;
+}

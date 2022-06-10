@@ -1,0 +1,114 @@
+﻿@using Crm.Domain.Models.Permissions
+@using Crm.Application.Utilities
+@model Crm.Domain.Models.Installment.Installment
+@{
+    ViewData["Title"] = "افزودن قسط";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Installment" asp-action="Index" >لیست قسط</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">افزودن قسط</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12 col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">ثبت قسط</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form class="form form-vertical" method="post">
+                    <input type="hidden" asp-for="UserId" value="@User.GetUserId()"/>
+                    <input type="hidden" asp-for="InstallmentId" />
+                    <input type="hidden" asp-for="CreateDate" />
+                    <div class="form-body">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="Title"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" class="form-control" asp-for="Title">
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="Code"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" class="form-control" asp-for="Code">
+                                        <span asp-validation-for="Code" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class=" col-12">
+                                <label asp-for="TypeSystemId"></label>
+                                <div class="form-group">
+                                    <select asp-for="TypeSystemId" class="select2 form-control" asp-items="@(ViewData["TypeSystem"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="TypeSystemId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="Value"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" class="form-control" asp-for="Value">
+                                        <span asp-validation-for="Value" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Customstyles
+{
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
+}
+
+@section Script
+{
+    <script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="/assets/js/scripts/forms/select/form-select2.js"></script>
+}
