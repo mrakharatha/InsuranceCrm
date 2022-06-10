@@ -62,7 +62,7 @@ public class ApplicationContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(assembly);
         base.OnModelCreating(modelBuilder);
 
-        int userId = _httpContextAccessor.HttpContext.User.GetUserId();
+        int userId =_httpContextAccessor.HttpContext.User.GetUserId();
 
         modelBuilder.Entity<Role>().HasQueryFilter(c => c.DeleteDate == null);
         modelBuilder.Entity<User>().HasQueryFilter(c => c.DeleteDate == null);

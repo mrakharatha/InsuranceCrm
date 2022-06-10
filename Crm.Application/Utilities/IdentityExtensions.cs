@@ -24,7 +24,7 @@ namespace Crm.Application.Utilities
 
         public static int GetUserId(this ClaimsPrincipal claims)
         {
-            var userId = claims.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = claims.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0";
             return Convert.ToInt32(userId);
         }
         public static T GetUserId<T>(this IIdentity identity) where T : IConvertible
