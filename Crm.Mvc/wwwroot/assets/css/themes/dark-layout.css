@@ -3,6 +3,12 @@
 body.dark-layout {
 	background-color: #1A233A;
 }
+.format_Input {
+    width: 0% !important;
+    height: 0px;
+    outline: none !important;
+    border: black;
+}
 
 body.dark-layout h1,
 body.dark-layout h2,

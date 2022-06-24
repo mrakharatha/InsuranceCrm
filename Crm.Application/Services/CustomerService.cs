@@ -4,6 +4,7 @@ using Crm.Domain.Interfaces;
 using Crm.Domain.Models.Customer;
 using Crm.Domain.ViewModel.Customer;
 using Crm.Domain.ViewModel.DataTable;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Application.Services;
 
@@ -128,5 +129,18 @@ public class CustomerService : ICustomerService
         customer.UserId = userId;
 
         UpdateCustomer(customer);
+    }
+
+    public List<SelectListItem> GetCustomer()
+    {
+        var result = _customerRepository.GetCustomer();
+
+        var items = new List<SelectListItem>()
+        {
+            new SelectListItem(){Value = null,Text = "لطفا انتخاب کنید"}
+        };
+
+        items.AddRange(result);
+        return items;
     }
 }

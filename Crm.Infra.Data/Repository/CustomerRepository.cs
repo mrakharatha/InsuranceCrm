@@ -5,6 +5,7 @@ using Crm.Domain.Models.Customer;
 using Crm.Domain.ViewModel.Customer;
 using Crm.Domain.ViewModel.DataTable;
 using Crm.Infra.Data.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Crm.Infra.Data.Repository;
@@ -90,5 +91,17 @@ public class CustomerRepository : ICustomerRepository
     public Customer? GetCustomerByCustomerIdCustomer(int customerId)
     {
         return _context.Customers.Find(customerId);
+    }
+
+    public List<SelectListItem> GetCustomer()
+    {
+        return _context.Customers
+            .OrderByDescending(x => x.CustomerId)
+            .Select(x => new SelectListItem()
+            {
+                Text = x.FullName+" - "+x.NationalCode,
+                Value = x.CustomerId.ToString()
+            })
+            .ToList();
     }
 }

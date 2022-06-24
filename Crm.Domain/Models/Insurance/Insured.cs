@@ -60,6 +60,10 @@ public class Insured
     public DateTime EndDateOfInsurancePolicy { get; set; }
 
 
+    [Display(Name = "توضیحات")]
+    [MaxLength(400, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+    public string? Description { get; set; }
+
     [Display(Name = "تاریخ ثبت")]
     public DateTime CreateDate { get; set; } = DateTime.Now;
     [Display(Name = "تاریخ ویرایش")]
@@ -75,5 +79,6 @@ public class Insured
     public PaymentMethod.PaymentMethod? PaymentMethod { get; set; }
     public TermInsurance? TermInsurance { get; set; }
     public Insurance? Insurance { get; set; }
+    public List<InsuredInstallment>? InsuredInstallments { get; set; }
     #endregion
 }

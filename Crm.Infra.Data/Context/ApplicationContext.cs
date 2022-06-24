@@ -38,6 +38,7 @@ public class ApplicationContext : DbContext
     public DbSet<MaritalStatus> MaritalStatus { get; set; }
     public DbSet<Insurance> Insurance { get; set; }
     public DbSet<Insured> Insureds { get; set; }
+    public DbSet<InsuredInstallment> InsuredInstallments { get; set; }
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Installment> Installments { get; set; }
     public DbSet<TermInsurance> TermInsurances { get; set; }

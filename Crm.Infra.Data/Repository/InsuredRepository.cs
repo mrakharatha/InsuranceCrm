@@ -1,5 +1,6 @@
 ﻿using Crm.Domain.Convertors;
 using Crm.Domain.Interfaces;
+using Crm.Domain.Models.Insurance;
 using Crm.Domain.ViewModel.Customer;
 using Crm.Domain.ViewModel.DataTable;
 using Crm.Domain.ViewModel.Insured;
@@ -60,5 +61,17 @@ public class InsuredRepository: IInsuredRepository
 
                 .ToListAsync()
         };
+    }
+
+    public void AddInsured(Insured insured)
+    {
+        _context.Add(insured);
+        _context.SaveChanges();
+    }
+
+    public void AddInsuredInstallmentRange(List<InsuredInstallment> insuredInstallments)
+    {
+        _context.AddRange(insuredInstallments);
+        _context.SaveChanges();
     }
 }

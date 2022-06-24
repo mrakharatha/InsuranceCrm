@@ -54,6 +54,14 @@ public class PaymentMethodService: IPaymentMethodService
 
     public List<SelectListItem> GetPaymentMethod()
     {
-        return _paymentMethodRepository.GetPaymentMethod();
+        var result = _paymentMethodRepository.GetPaymentMethod();
+
+        var items = new List<SelectListItem>()
+        {
+            new SelectListItem(){Value = null,Text = "لطفا انتخاب کنید"}
+        };
+
+        items.AddRange(result);
+        return items;
     }
 }

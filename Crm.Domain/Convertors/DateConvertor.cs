@@ -15,8 +15,31 @@ namespace Crm.Domain.Convertors
             PersianCalendar pc = new PersianCalendar();
             return pc.GetYear(value) + "/" + pc.GetMonth(value).ToString("00") + "/" +
                    pc.GetDayOfMonth(value).ToString("00") + " " + value.ToString("HH:mm:ss");
+        }  
+        public static DateTime AddMonthsPersian(this DateTime value,int month)
+        {
+            var persianCalendar = new System.Globalization.PersianCalendar();
+            var today = value;
+            var dateTime = persianCalendar.AddMonths(today, month);
+
+            return dateTime;
         }
-    
+
+        public static List<DateTime> GetInstallment(DateTime dateOfFirstInstallment, int month)
+        {
+            List<DateTime> dateTimes = new List<DateTime> {dateOfFirstInstallment};
+
+            month -= 1;
+
+            for (int i = 0; i < month; i++)
+            {
+                var descending = dateTimes.MaxBy(x=> x.Date);
+                dateTimes.Add(descending.AddMonths(1));
+            }
+
+
+            return dateTimes;
+        }
         public static string GetDay(this DateTime date)
         {
             DayOfWeek dayOfWeek = date.DayOfWeek;

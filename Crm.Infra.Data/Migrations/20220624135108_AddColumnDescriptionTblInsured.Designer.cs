@@ -4,6 +4,7 @@ using Crm.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crm.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220624135108_AddColumnDescriptionTblInsured")]
+    partial class AddColumnDescriptionTblInsured
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3142,27 +3144,6 @@ namespace Crm.Infra.Data.Migrations
                     b.ToTable("Insureds");
                 });
 
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.InsuredInstallment", b =>
-                {
-                    b.Property<int>("InsuredInstallmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InsuredInstallmentId"), 1L, 1);
-
-                    b.Property<DateTime>("DateInstallment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("InsuredId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InsuredInstallmentId");
-
-                    b.HasIndex("InsuredId");
-
-                    b.ToTable("InsuredInstallments");
-                });
-
             modelBuilder.Entity("Crm.Domain.Models.Insurance.TermInsurance", b =>
                 {
                     b.Property<int>("TermInsuranceId")
@@ -3776,17 +3757,6 @@ namespace Crm.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.InsuredInstallment", b =>
-                {
-                    b.HasOne("Crm.Domain.Models.Insurance.Insured", "Insured")
-                        .WithMany("InsuredInstallments")
-                        .HasForeignKey("InsuredId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Insured");
-                });
-
             modelBuilder.Entity("Crm.Domain.Models.Insurance.TermInsurance", b =>
                 {
                     b.HasOne("Crm.Domain.Models.User.User", "User")
@@ -3890,11 +3860,6 @@ namespace Crm.Infra.Data.Migrations
             modelBuilder.Entity("Crm.Domain.Models.Insurance.Insurance", b =>
                 {
                     b.Navigation("Insureds");
-                });
-
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.Insured", b =>
-                {
-                    b.Navigation("InsuredInstallments");
                 });
 
             modelBuilder.Entity("Crm.Domain.Models.Insurance.TermInsurance", b =>

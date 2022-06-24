@@ -147,7 +147,7 @@
                 { data: "operation" }
             ],
             "fnCreatedRow": function(nRow, aData, iDataIndex) {
-                $(nRow).attr("id", "Insured_" + aData.InsuredId);
+                $(nRow).attr("id", "Insured_" + aData.insuredId);
 
                 var row = iDataIndex+1;
 
@@ -157,8 +157,8 @@
         <span style = "padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
         </span>
         <div class="dropdown-menu">
-        <a class="dropdown-item"   href="/Insured/InsuredEdit/${aData.InsuredId}"  ><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
-        <a class="dropdown-item" onclick="DeleteInsured(${aData.InsuredId})"><i class="bx bx-trash mr-1"></i> حذف</a>
+        <a class="dropdown-item"   href="/Insured/InsuredEdit/${aData.insuredId}"  ><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+        <a class="dropdown-item" onclick="DeleteInsured(${aData.insuredId})"><i class="bx bx-trash mr-1"></i> حذف</a>
         </div>
         </div>`);
             }

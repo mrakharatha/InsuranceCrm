@@ -1,7 +1,9 @@
 ﻿using Crm.Application.Interfaces;
 using Crm.Application.Security;
 using Crm.Domain.ViewModel.DataTable;
+using Crm.Domain.ViewModel.Insured;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Mvc.Controllers
 {
@@ -13,7 +15,9 @@ namespace Crm.Mvc.Controllers
         private readonly IPaymentMethodService _paymentMethodService;
         private readonly ITermInsuranceService _termInsuranceService;
         private readonly IInsuranceService _insuranceService;
-        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService)
+        private readonly ICustomerService _customerService;
+
+        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService, ICustomerService customerService)
         {
             _insuredService = insuredService;
             _permissionService = permissionService;
@@ -21,6 +25,7 @@ namespace Crm.Mvc.Controllers
             _paymentMethodService = paymentMethodService;
             _termInsuranceService = termInsuranceService;
             _insuranceService = insuranceService;
+            _customerService = customerService;
         }
 
         [PermissionChecker(36)]
@@ -32,7 +37,21 @@ namespace Crm.Mvc.Controllers
         [PermissionChecker(37)]
         public IActionResult InsuredCreate()
         {
+            GetData();
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult InsuredCreate(AddInsuredViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                GetData();
+                return View(model);
+            }
+
+            _insuredService.AddInsured(model);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -48,10 +67,11 @@ namespace Crm.Mvc.Controllers
 
         public void GetData()
         {
-            var installments = _installmentService.GetInstallment();
-            var paymentMethods = _paymentMethodService.GetPaymentMethod();
-            var termInsurances = _termInsuranceService.GetTermInsurance();
-            var insurances = _insuranceService.GetInsurance();
+            ViewData["Installment"] = new SelectList(_installmentService.GetInstallment(), "Value", "Text");
+            ViewData["PaymentMethod"] = new SelectList(_paymentMethodService.GetPaymentMethod(), "Value", "Text");
+            ViewData["TermInsurance"] = new SelectList(_termInsuranceService.GetTermInsurance(), "Value", "Text");
+            ViewData["Insurance"] = new SelectList(_insuranceService.GetInsurance(), "Value", "Text");
+            ViewData["Customer"] = new SelectList(_customerService.GetCustomer(), "Value", "Text");
         }
     }
 }

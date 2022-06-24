@@ -64,20 +64,20 @@ namespace Crm.Domain.ViewModel.Insured
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
         public ulong FirstYearPremiumAmount { get; set; }
-        public string NumberFirstYearPremiumAmount { get; set; }
+        public string NumberFirstYearPremium { get; set; }
 
 
         [Display(Name = "مبلغ هر قسط")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
         public ulong AmountPerInstallment { get; set; }
-        public ulong NumberPerInstallment { get; set; }
+        public string NumberPerInstallment { get; set; }
 
         [Display(Name = "سرمایه فوت سال اول")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
         public ulong CapitalDeathFirstYear { get; set; }
-        public ulong NumberCapitalDeathFirstYear { get; set; }
+        public string NumberCapitalDeathFirstYear { get; set; }
 
 
         [Display(Name = "تاریخ شروع قسط")]
@@ -87,5 +87,8 @@ namespace Crm.Domain.ViewModel.Insured
         [Display(Name = "تاریخ شروع بیمه نامه")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
         public string StartDateOfInsurancePolicy { get; set; }
+
+        [Display(Name = "توضیحات")]
+        public string? Description { get; set; }
     }
 }

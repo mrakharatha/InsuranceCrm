@@ -63,6 +63,14 @@ public class TermInsuranceService: ITermInsuranceService
 
     public List<SelectListItem> GetTermInsurance()
     {
-        return _termInsuranceRepository.GetTermInsurance();
+        var result = _termInsuranceRepository.GetTermInsurance();
+
+        var items = new List<SelectListItem>()
+        {
+            new SelectListItem(){Value = null,Text = "لطفا انتخاب کنید"}
+        };
+
+        items.AddRange(result);
+        return items;
     }
 }

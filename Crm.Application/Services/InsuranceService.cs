@@ -55,6 +55,14 @@ public class InsuranceService: IInsuranceService
 
     public List<SelectListItem> GetInsurance()
     {
-        return _insuranceRepository.GetInsurance();
+        var result = _insuranceRepository.GetInsurance();
+
+        var items = new List<SelectListItem>()
+        {
+            new SelectListItem(){Value = null,Text = "لطفا انتخاب کنید"}
+        };
+
+        items.AddRange(result);
+        return items;
     }
 }

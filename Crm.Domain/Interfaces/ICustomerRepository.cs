@@ -1,6 +1,7 @@
 ﻿using Crm.Domain.Models.Customer;
 using Crm.Domain.ViewModel.Customer;
 using Crm.Domain.ViewModel.DataTable;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Domain.Interfaces;
 
@@ -12,4 +13,6 @@ public interface ICustomerRepository
     void AddCustomer(Customer customer);
    void UpdateCustomer(Customer customer);
     Customer? GetCustomerByCustomerIdCustomer(int customerId);
+    List<SelectListItem> GetCustomer();
+
 }

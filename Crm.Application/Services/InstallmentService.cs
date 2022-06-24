@@ -63,6 +63,14 @@ public class InstallmentService: IInstallmentService
 
     public List<SelectListItem> GetInstallment()
     {
-        return _installmentRepository.GetInstallment();
+        var result = _installmentRepository.GetInstallment();
+
+        var items = new List<SelectListItem>()
+        {
+            new SelectListItem(){Value = null,Text = "لطفا انتخاب کنید"}
+        };
+
+        items.AddRange(result);
+        return items;
     }
 }
