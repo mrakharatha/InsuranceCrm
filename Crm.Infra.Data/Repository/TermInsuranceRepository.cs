@@ -1,6 +1,7 @@
 ﻿using Crm.Domain.Interfaces;
 using Crm.Domain.Models.Insurance;
 using Crm.Infra.Data.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Crm.Infra.Data.Repository;
@@ -46,5 +47,17 @@ public class TermInsuranceRepository: ITermInsuranceRepository
 
         return _context.TermInsurances.Any(x => x.Code == code && x.TermInsuranceId != termInsuranceId);
 
+    }
+
+    public List<SelectListItem> GetTermInsurance()
+    {
+        return _context.TermInsurances
+            .OrderByDescending(x => x.TermInsuranceId)
+            .Select(x => new SelectListItem()
+            {
+                Value = x.TermInsuranceId.ToString(),
+                Text = x.Title + " - " + x.Code
+            })
+            .ToList();
     }
 }

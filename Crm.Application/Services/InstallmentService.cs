@@ -60,4 +60,9 @@ public class InstallmentService: IInstallmentService
         list.AddRange(from TypeSystem val in Enum.GetValues(typeof(TypeSystem)) select new SelectListItem() {Value = val.ToString(), Text = val.ToDisplay()});
         return list;
     }
+
+    public List<SelectListItem> GetInstallment()
+    {
+        return _installmentRepository.GetInstallment();
+    }
 }

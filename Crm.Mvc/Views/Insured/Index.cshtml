@@ -1,7 +1,228 @@
-﻿
+﻿@model IEnumerable<Crm.Domain.ViewModel.Insured.InsuredViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "لیست بیمه شدگان";
 }
 
-<h1>Index</h1>
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            لیست بیمه شدگان
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Zero configuration table -->
+<section id="basic-datatable">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <a asp-controller="Insured" asp-action="InsuredCreate" type="button" class="btn btn-primary round mr-1 mb-1">افزودن</a>
+                </div>
+                <div class="card-content">
+                    <div class="card-body card-dashboard">
+                        <div class="table-responsive">
+                            <table id="dataTable" class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Row)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.FullName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Insurance)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PaymentMethod)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.StartDateOfInsurancePolicy)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EndDateOfInsurancePolicy)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CreateDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Operation)
+                                        </th>
+                                    </tr>
+                                </thead>
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Zero configuration table -->
+@section Customstyles
+{
+<link rel="stylesheet" type="text/css" href="/assets/vendors/css/tables/datatable/datatables.min.css">
+}
+
+
+@section Script
+{
+
+
+<script src="/assets/vendors/js/tables/datatable/datatables.min.js"></script>
+<script src="/assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/js/scripts/datatables/datatable.js"></script>
+<script src="/assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+
+        $('#dataTable').DataTable({
+            // Design Assets
+            stateSave: true,
+            autoWidth: true,
+            // ServerSide Setups
+            processing: true,
+            serverSide: true,
+            // Paging Setups
+            paging: true,
+            // Searching Setups
+            searching: { regex: true },
+            // Ajax Filter
+            ajax: {
+                "type": "POST",
+                "url": '/Insured/Data',
+                "dataSrc": function(json) {
+                    return json.data;
+                },
+                beforeSend: function() {
+                    let block_ele = $('.table-responsive');
+                    $(block_ele).block({
+                        message: '<div class="spinner-grow text-primary" role="status"></div>',
+                        overlayCSS: {
+                            backgroundColor: 'white',
+                            opacity: 0.3,
+                            cursor: 'wait'
+                        },
+                        css: {
+                            border: 0,
+                            padding: 0,
+                            backgroundColor: 'transparent'
+                        }
+                    });
+
+                },
+                complete: function() {
+                    let block_ele = $('.table-responsive');
+                    $(block_ele).unblock();
+                }
+            },
+            columns: [
+                { data: "row" },
+                { data: "fullName" },
+                { data: "insurance" },
+                { data: "paymentMethod" },
+                { data: "startDateOfInsurancePolicy" },
+                { data: "endDateOfInsurancePolicy" },
+                { data: "createDate" },
+                { data: "operation" }
+            ],
+            "fnCreatedRow": function(nRow, aData, iDataIndex) {
+                $(nRow).attr("id", "Insured_" + aData.InsuredId);
+
+                var row = iDataIndex+1;
+
+                $(nRow).find('td').first().html(`${row}`);
+
+                $(nRow).find('td').last().html(`<div class="dropup">
+        <span style = "padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
+        </span>
+        <div class="dropdown-menu">
+        <a class="dropdown-item"   href="/Insured/InsuredEdit/${aData.InsuredId}"  ><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+        <a class="dropdown-item" onclick="DeleteInsured(${aData.InsuredId})"><i class="bx bx-trash mr-1"></i> حذف</a>
+        </div>
+        </div>`);
+            }
+
+
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    function DeleteInsured(id) {
+
+
+        Swal.fire({
+            title: 'آیا مطمئنید؟',
+            text: "این عمل قابل بازگشت نخواهد بود!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'تایید',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-danger ml-1',
+            cancelButtonText: 'انصراف',
+            buttonsStyling: false,
+        }).then(function (result) {
+            if (result.value) {
+                $.get("/Insured/Delete/" + id,
+                    function (data)
+                    {
+                        if (data)
+                        {
+                            $("#Insured_" + id).hide('slow');
+
+                            Swal.fire({
+                                type: "success",
+                                title: 'حذف شد!',
+                                text: 'بیمه شده  با موفقیت حذف شد',
+                                confirmButtonClass: 'btn btn-success',
+                                confirmButtonText: 'باشه',
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: "خطا!",
+                                text: "شما مجاز به دسترسی نیستید!",
+                                type: "error",
+                                confirmButtonClass: 'btn btn-primary',
+                                confirmButtonText: 'باشه',
+                                buttonsStyling: false,
+                            });
+                        }
+
+
+                    });
+            }
+        });
+
+    }
+
+</script>
+
+
+}
+
+
 

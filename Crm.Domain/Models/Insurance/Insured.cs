@@ -7,12 +7,15 @@ public class Insured
     [Key]
     public int InsuredId { get; set; }
     public int UserId { get; set; }
-    public int InstallmentId { get; set; }
+
 
     [Display(Name = "مشتری")]
     [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
     public int? CustomerId { get; set; }
 
+    [Display(Name = "اقساط")]
+    [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+    public int? InstallmentId { get; set; }
 
     [Display(Name = "روش پرداخت")]
     [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]

@@ -14,8 +14,9 @@ namespace Crm.Domain.ViewModel.Insured
         public int InsuredId { get; set; }
         [Display(Name = "نام و نام خانوادگی")]
         public string FullName { get; set; }
-        [Display(Name = "نوع بیمه")]
-        public string TypeInsurance { get; set; }
+
+        [Display(Name = "بیمه")]
+        public string Insurance { get; set; }
 
         [Display(Name = "روش پرداخت")]
         public string PaymentMethod { get; set; }

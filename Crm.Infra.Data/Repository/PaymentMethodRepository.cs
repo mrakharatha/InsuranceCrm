@@ -1,6 +1,7 @@
 ﻿using Crm.Domain.Interfaces;
 using Crm.Domain.Models.PaymentMethod;
 using Crm.Infra.Data.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Infra.Data.Repository;
 
@@ -46,5 +47,17 @@ public class PaymentMethodRepository: IPaymentMethodRepository
 
         return _context.PaymentMethods.Any(x => x.Code == code && x.PaymentMethodId != paymentMethodId);
 
+    }
+
+    public List<SelectListItem> GetPaymentMethod()
+    {
+        return _context.PaymentMethods
+            .OrderByDescending(x => x.PaymentMethodId)
+            .Select(x => new SelectListItem()
+            {
+                Value = x.PaymentMethodId.ToString(),
+                Text = x.Title+" - "+x.Code
+            })
+            .ToList();
     }
 }

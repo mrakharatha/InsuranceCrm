@@ -12,4 +12,5 @@ public interface IInstallmentService
     void DeleteInstallment(int installmentId);
     bool CheckCodeInstallment(int installmentId, int code);
     List<SelectListItem> GetTypeSystem();
+    List<SelectListItem> GetInstallment();
 }

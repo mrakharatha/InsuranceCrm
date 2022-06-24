@@ -1,6 +1,7 @@
 ﻿using Crm.Application.Interfaces;
 using Crm.Domain.Interfaces;
 using Crm.Domain.Models.PaymentMethod;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Application.Services;
 
@@ -49,5 +50,10 @@ public class PaymentMethodService: IPaymentMethodService
     public bool CheckCodePaymentMethod(int paymentMethodId, int code)
     {
         return _paymentMethodRepository.CheckCodePaymentMethod(paymentMethodId, code);
+    }
+
+    public List<SelectListItem> GetPaymentMethod()
+    {
+        return _paymentMethodRepository.GetPaymentMethod();
     }
 }

@@ -9,10 +9,18 @@ namespace Crm.Mvc.Controllers
     {
         private readonly IInsuredService _insuredService;
         private readonly IPermissionService _permissionService;
-        public InsuredController(IInsuredService insuredService, IPermissionService permissionService)
+        private readonly IInstallmentService _installmentService;
+        private readonly IPaymentMethodService _paymentMethodService;
+        private readonly ITermInsuranceService _termInsuranceService;
+        private readonly IInsuranceService _insuranceService;
+        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService)
         {
             _insuredService = insuredService;
             _permissionService = permissionService;
+            _installmentService = installmentService;
+            _paymentMethodService = paymentMethodService;
+            _termInsuranceService = termInsuranceService;
+            _insuranceService = insuranceService;
         }
 
         [PermissionChecker(36)]
@@ -21,7 +29,11 @@ namespace Crm.Mvc.Controllers
             return View();
         }
 
-
+        [PermissionChecker(37)]
+        public IActionResult InsuredCreate()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Data(DtParameters dtParameters)
@@ -29,6 +41,17 @@ namespace Crm.Mvc.Controllers
             var dtResult = await _insuredService.GetData(dtParameters);
 
             return Json(dtResult);
+        }
+
+
+
+
+        public void GetData()
+        {
+            var installments = _installmentService.GetInstallment();
+            var paymentMethods = _paymentMethodService.GetPaymentMethod();
+            var termInsurances = _termInsuranceService.GetTermInsurance();
+            var insurances = _insuranceService.GetInsurance();
         }
     }
 }

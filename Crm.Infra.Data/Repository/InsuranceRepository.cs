@@ -2,6 +2,7 @@
 using Crm.Domain.Models;
 using Crm.Domain.Models.Insurance;
 using Crm.Infra.Data.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Infra.Data.Repository;
 
@@ -47,5 +48,17 @@ public class InsuranceRepository: IInsuranceRepository
 
         return _context.Insurance.Any(x => x.Code == code && x.InsuranceId != insuranceId);
 
+    }
+
+    public List<SelectListItem> GetInsurance()
+    {
+        return _context.Insurance
+            .OrderByDescending(x => x.InsuranceId)
+            .Select(x => new SelectListItem()
+            {
+                Value = x.InsuranceId.ToString(),
+                Text = x.Title + " - " + x.Code
+            })
+            .ToList();
     }
 }

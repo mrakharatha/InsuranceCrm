@@ -2,6 +2,7 @@
 using Crm.Domain.Interfaces;
 using Crm.Domain.Models;
 using Crm.Domain.Models.Insurance;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Application.Services;
 
@@ -50,5 +51,10 @@ public class InsuranceService: IInsuranceService
     public bool CheckCodeInsurance(int insuranceId, int code)
     {
         return _insuranceRepository.CheckCodeInsurance(insuranceId, code);
+    }
+
+    public List<SelectListItem> GetInsurance()
+    {
+        return _insuranceRepository.GetInsurance();
     }
 }

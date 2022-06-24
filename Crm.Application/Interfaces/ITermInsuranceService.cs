@@ -12,4 +12,5 @@ public interface ITermInsuranceService
     void DeleteTermInsurance(int termInsuranceId);
     bool CheckCodeTermInsurance(int termInsuranceId, int code);
     List<SelectListItem> GetTypeSystem();
+    List<SelectListItem> GetTermInsurance();
 }

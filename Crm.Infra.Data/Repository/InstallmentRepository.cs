@@ -2,6 +2,7 @@
 using Crm.Domain.Models;
 using Crm.Domain.Models.Installment;
 using Crm.Infra.Data.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Crm.Infra.Data.Repository;
 
@@ -47,5 +48,17 @@ public class InstallmentRepository: IInstallmentRepository
 
         return _context.Installments.Any(x => x.Code == code && x.InstallmentId != installmentId);
 
+    }
+
+    public List<SelectListItem> GetInstallment()
+    {
+        return _context.Installments
+            .OrderByDescending(x => x.InstallmentId)
+            .Select(x => new SelectListItem()
+            {
+                Text = x.Title +" - "+x.Code,
+                Value = x.InstallmentId.ToString()
+            })
+            .ToList();
     }
 }
