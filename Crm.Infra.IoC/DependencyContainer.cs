@@ -39,6 +39,10 @@ public class DependencyContainer
 
         service.AddScoped<IAreaService, AreaService>();
         service.AddScoped<IAreaRepository, AreaRepository>();
+        
+
+        service.AddScoped<IInsuredService, InsuredService>();
+        service.AddScoped<IInsuredRepository, InsuredRepository>();
 
 
         service.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

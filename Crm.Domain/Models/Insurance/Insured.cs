@@ -52,6 +52,9 @@ public class Insured
     [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
     public DateTime StartDateOfInsurancePolicy { get; set; }
 
+    [Display(Name = "تاریخ پایان بیمه نامه")]
+    [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+    public DateTime EndDateOfInsurancePolicy { get; set; }
 
 
     [Display(Name = "تاریخ ثبت")]

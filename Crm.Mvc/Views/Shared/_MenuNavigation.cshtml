@@ -7,6 +7,13 @@
         <a asp-controller="Home" asp-action="Index"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
     </li>
     
+    @if (_permissionService.CheckPermission(36, User.GetUserId()))
+    {
+        <li class=" nav-item">
+            <a asp-controller="Insured" asp-action="Index"><i class="menu-livicon" data-icon="coins"></i><span class="menu-title" data-i18n="coins">بیمه شدگان</span></a>
+        </li>
+    }
+    
     @if (_permissionService.CheckPermission(16, User.GetUserId()))
     {
         <li class=" nav-item">
