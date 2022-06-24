@@ -60,6 +60,12 @@ namespace Crm.Infra.Data.Seeders
                 new Permission(){PermissionId = 33,Title = "افزودن مدت بیمه نامه",ParentId = 32},
                 new Permission(){PermissionId = 34,Title = "ویرایش مدت بیمه نامه ",ParentId = 32},
                 new Permission(){PermissionId = 35,Title = "حذف مدت بیمه نامه",ParentId = 32},
+
+
+                new Permission(){PermissionId = 36,Title = "بیمه شدگان",ParentId = null},
+                new Permission(){PermissionId = 37,Title = "افزودن  بیمه شده",ParentId = 36},
+                new Permission(){PermissionId = 38,Title = "ویرایش  بیمه شده ",ParentId = 36},
+                new Permission(){PermissionId = 39,Title = "حذف  بیمه شده",ParentId = 36},
             });
         }
     }

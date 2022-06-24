@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Crm.Domain.Enum.TypeSystem;
+using Crm.Domain.Models.Insurance;
 
 namespace Crm.Domain.Models.Installment;
 
@@ -44,5 +45,7 @@ public class Installment
     #region Relations
 
     public User.User? User { get; set; }
+    public List<Insured>? Insureds { get; set; }
+
     #endregion
 }

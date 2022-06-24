@@ -37,6 +37,7 @@ public class ApplicationContext : DbContext
 
     public DbSet<MaritalStatus> MaritalStatus { get; set; }
     public DbSet<Insurance> Insurance { get; set; }
+    public DbSet<Insured> Insureds { get; set; }
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Installment> Installments { get; set; }
     public DbSet<TermInsurance> TermInsurances { get; set; }
@@ -62,16 +63,18 @@ public class ApplicationContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(assembly);
         base.OnModelCreating(modelBuilder);
 
-        int userId =_httpContextAccessor.HttpContext.User.GetUserId();
+        int userId = _httpContextAccessor.HttpContext.User.GetUserId();
 
         modelBuilder.Entity<Role>().HasQueryFilter(c => c.DeleteDate == null);
         modelBuilder.Entity<User>().HasQueryFilter(c => c.DeleteDate == null);
-        modelBuilder.Entity<MaritalStatus>().HasQueryFilter(c => c.DeleteDate == null&&c.UserId==userId);
+
+        modelBuilder.Entity<MaritalStatus>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<Insurance>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<PaymentMethod>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<Customer>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<Installment>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<TermInsurance>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
+        modelBuilder.Entity<Insured>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
 
     }
 

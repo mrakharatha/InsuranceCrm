@@ -34,6 +34,7 @@ public class Insurance
     #region Relations
 
     public User.User? User { get; set; }
+    public List<Insured>? Insureds { get; set; }
 
     #endregion
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Crm.Domain.Models.Insurance;
 
 namespace Crm.Domain.Models.PaymentMethod;
 
@@ -35,6 +36,7 @@ public class PaymentMethod
     #region Relations
 
     public User.User? User { get; set; }
+    public List<Insured>? Insureds { get; set; }
 
     #endregion
 }

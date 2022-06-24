@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Crm.Domain.Models.Area;
+using Crm.Domain.Models.Insurance;
 
 namespace Crm.Domain.Models.Customer;
 
@@ -78,6 +79,8 @@ public class Customer
     public MaritalStatus.MaritalStatus? MaritalStatus { get; set; }
     public Province? Province { get; set; }
     public Township? Township { get; set; }
+    public List<Insured>? Insureds { get; set; }
+
     #endregion
 
 }

@@ -46,6 +46,7 @@ public class User
     public List<PaymentMethod.PaymentMethod>? PaymentMethods { get; set; }
     public List<Installment.Installment>? Installments { get; set; }
     public List<TermInsurance>? TermInsurances { get; set; }
+    public List<Insured>? Insureds { get; set; }
     #endregion
 
 }
