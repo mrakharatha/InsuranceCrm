@@ -32,4 +32,60 @@ namespace Crm.Domain.ViewModel.Insured
         [Display(Name = "عملیات")]
         public string Operation { get; set; }
     }
+
+    public class AddInsuredViewModel
+    {
+        public int UserId { get; set; }
+
+        [Display(Name = "مشتری")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public int? CustomerId { get; set; }
+
+        [Display(Name = "مدت بیمه نامه")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public int? TermInsuranceId { get; set; }
+
+        [Display(Name = "بیمه")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public int? InsuranceId { get; set; }
+
+
+        [Display(Name = "اقساط")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public int? InstallmentId { get; set; }
+
+        [Display(Name = "روش پرداخت")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public int? PaymentMethodId { get; set; }
+
+
+
+        [Display(Name = "مبلغ حق بیمه سال اول")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
+        public ulong FirstYearPremiumAmount { get; set; }
+        public string NumberFirstYearPremiumAmount { get; set; }
+
+
+        [Display(Name = "مبلغ هر قسط")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
+        public ulong AmountPerInstallment { get; set; }
+        public ulong NumberPerInstallment { get; set; }
+
+        [Display(Name = "سرمایه فوت سال اول")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        [Range(0, UInt64.MaxValue, ErrorMessage = " مقدار  {0} بین {1} تا {2}.")]
+        public ulong CapitalDeathFirstYear { get; set; }
+        public ulong NumberCapitalDeathFirstYear { get; set; }
+
+
+        [Display(Name = "تاریخ شروع قسط")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public string InstallmentStartDate { get; set; }
+
+        [Display(Name = "تاریخ شروع بیمه نامه")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید ")]
+        public string StartDateOfInsurancePolicy { get; set; }
+    }
 }
