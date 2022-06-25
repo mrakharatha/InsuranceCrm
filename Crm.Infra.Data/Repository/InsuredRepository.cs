@@ -1,4 +1,5 @@
-﻿using Crm.Domain.Convertors;
+﻿using Crm.Application.Utilities;
+using Crm.Domain.Convertors;
 using Crm.Domain.Interfaces;
 using Crm.Domain.Models.Insurance;
 using Crm.Domain.ViewModel.Customer;
@@ -27,9 +28,9 @@ public class InsuredRepository: IInsuredRepository
         if (!string.IsNullOrEmpty(searchBy))
         {
             result = result.Where(x =>
-                x.Customer.FullName.Contains(searchBy) ||
-                x.Insurance.Title.Contains(searchBy) ||
-                x.PaymentMethod.Title.Contains(searchBy)
+                x.Customer!.FullName.Contains(searchBy) ||
+                x.Insurance!.Title.Contains(searchBy) ||
+                x.PaymentMethod!.Title.Contains(searchBy)
             );
         }
 
@@ -51,10 +52,10 @@ public class InsuredRepository: IInsuredRepository
                 .Select(x => new InsuredViewModel()
                 {
                     CreateDate = x.CreateDate.ToShamsi(),
-                    Insurance = x.Insurance.Title,
-                    PaymentMethod = x.PaymentMethod.Title,
+                    Insurance = x.Insurance!.Title,
+                    PaymentMethod = x.PaymentMethod!.Title,
                     InsuredId = x.InsuredId,
-                    FullName = x.Customer.FullName,
+                    FullName = x.Customer!.FullName,
                     EndDateOfInsurancePolicy = x.EndDateOfInsurancePolicy.ToShamsi(),
                     StartDateOfInsurancePolicy = x.StartDateOfInsurancePolicy.ToShamsi()
                 })
@@ -73,5 +74,39 @@ public class InsuredRepository: IInsuredRepository
     {
         _context.AddRange(insuredInstallments);
         _context.SaveChanges();
+    }
+
+    public Insured? GetInsuredById(int insuredId)
+    {
+        return _context.Insureds.Find(insuredId);
+    }
+
+    public void UpdateInsured(Insured insured)
+    {
+        _context.Update(insured);
+        _context.SaveChanges();
+    }
+
+    public void DeleteInsuredInstallment(int insuredId)
+    {
+        _context.InsuredInstallments
+            .Where(x=> x.InsuredId.Equals(insuredId))
+            .ToList()
+            .ForEach(x=> _context.Remove(x));
+
+        _context.SaveChanges();
+    }
+
+    public List<InsuredInstallmentsViewModel> GetInsuredInstallmentsByInsuredId(int insuredId)
+    {
+        return _context.InsuredInstallments
+            .Include(x => x.Insured)
+            .Where(x => x.InsuredId.Equals(insuredId))
+            .Select(x => new InsuredInstallmentsViewModel()
+            {
+                AmountPerInstallment = x.Insured!.AmountPerInstallment,
+                DateInstallment = x.DateInstallment
+            })
+            .ToList();
     }
 }

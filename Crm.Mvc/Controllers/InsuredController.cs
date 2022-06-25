@@ -1,5 +1,6 @@
 ﻿using Crm.Application.Interfaces;
 using Crm.Application.Security;
+using Crm.Application.Utilities;
 using Crm.Domain.ViewModel.DataTable;
 using Crm.Domain.ViewModel.Insured;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,51 @@ namespace Crm.Mvc.Controllers
             _insuredService.AddInsured(model);
             return RedirectToAction("Index");
         }
+
+        [PermissionChecker(38)]
+        public IActionResult InsuredEdit(int id)
+        {
+            var insured = _insuredService.GetInsuredViewModel(id);
+
+            if (insured == null)
+                return RedirectToAction("Index");
+
+            GetData();
+            return View(insured);
+        }
+
+        [HttpPost]
+        public IActionResult InsuredEdit(EditInsuredViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                GetData();
+                return View(model);
+            }
+
+            _insuredService.UpdateInsured(model);
+            return RedirectToAction("Index");
+        }
+
+
+        public bool Delete(int id)
+        {
+            if (!_permissionService.CheckPermission(39, User.GetUserId()))
+                return false;
+
+            _insuredService.DeleteInsured(id,User.GetUserId());
+
+            return true;
+        }
+
+
+
+        public IActionResult Installments(int id)
+        {
+            var installments = _insuredService.GetInsuredInstallmentsByInsuredId(id);
+            return View(installments);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Data(DtParameters dtParameters)

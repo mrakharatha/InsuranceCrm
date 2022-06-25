@@ -1,4 +1,5 @@
 ﻿using Crm.Application.Interfaces;
+using Crm.Application.Utilities;
 using Crm.Domain.Convertors;
 using Crm.Domain.Interfaces;
 using Crm.Domain.Models.Insurance;
@@ -27,9 +28,10 @@ public class InsuredService: IInsuredService
 
     public void AddInsured(AddInsuredViewModel model)
     {
-        var termInsurance = _termInsuranceService.GetTermInsuranceById(model.TermInsuranceId.Value);
 
-        var endDateOfInsurancePolicy = model.StartDateOfInsurancePolicy.ToDateTime().AddMonthsPersian(termInsurance.Value.Value);
+        var termInsurance = _termInsuranceService.GetTermInsuranceById(model.TermInsuranceId!.Value);
+
+        var endDateOfInsurancePolicy = model.StartDateOfInsurancePolicy.ToDateTime().AddMonthsPersian(termInsurance!.Value!.Value);
 
 
         var insured = new Insured()
@@ -51,7 +53,7 @@ public class InsuredService: IInsuredService
         };  
 
         AddInsured(insured);
-        AddInsuredInstallment(insured.InsuredId,insured.InstallmentId.Value,insured.InstallmentStartDate);
+        AddInsuredInstallment(insured.InsuredId,insured.InstallmentId!.Value,insured.InstallmentStartDate);
     }
 
     public void AddInsured(Insured insured)
@@ -63,7 +65,7 @@ public class InsuredService: IInsuredService
     {
         var installment = _installmentService.GetInstallmentById(installmentId);
 
-        var dateTimes = DateConvertor.GetInstallment(installmentStartDate,installment.Value.Value);
+        var dateTimes = DateConvertor.GetInstallment(installmentStartDate,installment!.Value!.Value);
 
         List<InsuredInstallment> insuredInstallments = new List<InsuredInstallment>();
         foreach (var dateTime in dateTimes)
@@ -77,8 +79,103 @@ public class InsuredService: IInsuredService
         AddInsuredInstallmentRange(insuredInstallments);
     }
 
+    public void DeleteInsuredInstallment(int insuredId)
+    {
+        _insuredRepository.DeleteInsuredInstallment(insuredId);
+    }
+
     public void AddInsuredInstallmentRange(List<InsuredInstallment> insuredInstallments)
     {
         _insuredRepository.AddInsuredInstallmentRange(insuredInstallments);
+    }
+
+    public Insured? GetInsuredById(int insuredId)
+    {
+        return _insuredRepository.GetInsuredById(insuredId);
+    }
+
+    public EditInsuredViewModel? GetInsuredViewModel(int insuredId)
+    {
+        var insured = GetInsuredById(insuredId);
+
+        if (insured == null)
+            return null;
+
+        return new EditInsuredViewModel()
+        {
+            AmountPerInstallment = insured.AmountPerInstallment,
+            CapitalDeathFirstYear = insured.CapitalDeathFirstYear,
+            CustomerId = insured.CustomerId,
+            Description = insured.Description,
+            FirstYearPremiumAmount = insured.FirstYearPremiumAmount,
+            InstallmentId = insured.InstallmentId,
+            InstallmentStartDate = insured.InstallmentStartDate.ToShamsi(),
+            InsuranceId = insured.InsuranceId,
+            InsuredId = insured.InsuredId,
+            TermInsuranceId = insured.TermInsuranceId,
+            PaymentMethodId = insured.PaymentMethodId,
+            UserId = insured.UserId,
+            StartDateOfInsurancePolicy = insured.StartDateOfInsurancePolicy.ToShamsi(),
+            NumberCapitalDeathFirstYear = insured.CapitalDeathFirstYear.ToToman(),
+            NumberFirstYearPremium = insured.FirstYearPremiumAmount.ToToman(),
+            NumberPerInstallment = insured.AmountPerInstallment.ToToman()
+        };
+    }
+
+    public void UpdateInsured(EditInsuredViewModel model)
+    {
+        var insured = GetInsuredById(model.InsuredId);
+
+        if(insured==null)
+            return;
+        
+        var termInsurance = _termInsuranceService.GetTermInsuranceById(model.TermInsuranceId!.Value);
+
+        var endDateOfInsurancePolicy = model.StartDateOfInsurancePolicy.ToDateTime().AddMonthsPersian(termInsurance!.Value!.Value);
+
+
+        insured.UserId = model.UserId;
+        insured.CustomerId = model.CustomerId;
+        insured.InstallmentId = model.InstallmentId;
+        insured.PaymentMethodId = model.PaymentMethodId;
+        insured.TermInsuranceId = model.TermInsuranceId;
+        insured.InsuranceId = model.InsuranceId;
+        insured.FirstYearPremiumAmount = model.FirstYearPremiumAmount;
+        insured.InstallmentStartDate = model.InstallmentStartDate.ToDateTime();
+        insured.AmountPerInstallment = model.AmountPerInstallment;
+        insured.CapitalDeathFirstYear = model.CapitalDeathFirstYear;
+        insured.StartDateOfInsurancePolicy = model.StartDateOfInsurancePolicy.ToDateTime();
+        insured.EndDateOfInsurancePolicy = endDateOfInsurancePolicy;
+        insured.Description = model.Description;
+
+
+        UpdateInsured(insured);
+        DeleteInsuredInstallment(insured.InsuredId);
+        AddInsuredInstallment(insured.InsuredId, insured.InstallmentId!.Value, insured.InstallmentStartDate);
+    }
+
+    public void UpdateInsured(Insured insured)
+    {
+        insured.UpdateDate=DateTime.Now;
+        _insuredRepository.UpdateInsured(insured);
+    }
+
+    public void DeleteInsured(int insuredId, int userId)
+    {
+        var insured = GetInsuredById(insuredId);
+
+        if (insured == null)
+            return;
+
+        insured.UserId = userId;
+        insured.DeleteDate=DateTime.Now;
+
+        UpdateInsured(insured);
+        DeleteInsuredInstallment(insured.InsuredId);
+    }
+
+    public List<InsuredInstallmentsViewModel> GetInsuredInstallmentsByInsuredId(int insuredId)
+    {
+        return _insuredRepository.GetInsuredInstallmentsByInsuredId(insuredId);
     }
 }

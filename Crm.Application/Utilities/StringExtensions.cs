@@ -7,6 +7,10 @@
             return ignoreWhiteSpace ? !string.IsNullOrWhiteSpace(value) : !string.IsNullOrEmpty(value);
         }
 
+        public static string ToToman(this  ulong amount)
+        {
+            return amount.ToString("#,0");
+        }
         public static int ToInt(this string value)
         {
             return Convert.ToInt32(value);

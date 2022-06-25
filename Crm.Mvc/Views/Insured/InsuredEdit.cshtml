@@ -1,0 +1,340 @@
+﻿@model Crm.Domain.ViewModel.Insured.EditInsuredViewModel
+@using Crm.Application.Utilities
+@{
+    ViewData["Title"] = "ویرایش بیمه شده";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Installment" asp-action="Index">لیست بیمه شده</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">ویرایش بیمه شده</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12 col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">ویرایش بیمه شده</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form class="form form-vertical" method="post">
+                    <input type="hidden" asp-for="UserId" value="@User.GetUserId()" />
+                    <input type="hidden" asp-for="InsuredId" />
+                    <input type="hidden" asp-for="CustomerId" />
+                    <div class="form-body">
+                        <div class="row">
+
+                            <div class=" col-md-12">
+                                <label asp-for="CustomerId"></label>
+                                <div class="form-group">
+                                    <select disabled="disabled" asp-for="CustomerId" class="select2 form-control" asp-items="@(ViewData["Customer"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class=" col-md-6">
+                                <label asp-for="TermInsuranceId"></label>
+                                <div class="form-group">
+                                    <select asp-for="TermInsuranceId" class="select2 form-control" asp-items="@(ViewData["TermInsurance"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="TermInsuranceId" class="text-danger"></span>
+
+                                </div>
+                            </div> 
+                            
+                            
+                            <div class=" col-md-6">
+                                <label asp-for="InsuranceId"></label>
+                                <div class="form-group">
+                                    <select asp-for="InsuranceId" class="select2 form-control" asp-items="@(ViewData["Insurance"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="InsuranceId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        
+                        <div class="row">
+                            <div class=" col-md-6">
+                                <label asp-for="InstallmentId"></label>
+                                <div class="form-group">
+                                    <select asp-for="InstallmentId" class="select2 form-control" asp-items="@(ViewData["Installment"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="InstallmentId" class="text-danger"></span>
+
+                                </div>
+                            </div> 
+                            
+                            
+                            <div class=" col-md-6">
+                                <label asp-for="PaymentMethodId"></label>
+                                <div class="form-group">
+                                    <select asp-for="PaymentMethodId" class="select2 form-control" asp-items="@(ViewData["PaymentMethod"] as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="PaymentMethodId" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="AmountPerInstallment"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" step="any" class="form-control" onkeyup="formatPerInstallment(this)" asp-for="NumberPerInstallment">
+                                        <span asp-validation-for="AmountPerInstallment" class="text-danger"></span>
+                                        <br/>
+                                        <span id="ShowAmountPerInstallment"></span>
+                                        <input type="number" class="format_Input" asp-for="AmountPerInstallment"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        
+                        <div class="row">
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FirstYearPremiumAmount"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" step="any" class="form-control" onkeyup="formatFirstYearPremiumAmount(this)" asp-for="NumberFirstYearPremium">
+                                        <span asp-validation-for="FirstYearPremiumAmount" class="text-danger"></span>
+                                        <br/>
+                                        <span id="ShowFirstYearPremiumAmount"></span>
+                                        <input type="number" class="format_Input" asp-for="FirstYearPremiumAmount"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CapitalDeathFirstYear"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" step="any" class="form-control" onkeyup="formatCapitalDeathFirstYear(this)" asp-for="NumberCapitalDeathFirstYear">
+                                        <span asp-validation-for="CapitalDeathFirstYear" class="text-danger"></span>
+                                        <br/>
+                                        <span id="ShowCapitalDeathFirstYear"></span>
+                                        <input type="number" class="format_Input" asp-for="CapitalDeathFirstYear"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            
+                          
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="InstallmentStartDate"></label>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input autocomplete="off" readonly="readonly" type="text" class="form-control" asp-for="InstallmentStartDate">
+                                        <div class="form-control-position">
+                                            <i class="bx bx-calendar"></i>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="InstallmentStartDate" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="StartDateOfInsurancePolicy"></label>
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input autocomplete="off" readonly="readonly" type="text" class="form-control" asp-for="StartDateOfInsurancePolicy">
+                                        <div class="form-control-position">
+                                            <i class="bx bx-calendar"></i>
+                                        </div>
+                                    </fieldset>
+                                    <span asp-validation-for="StartDateOfInsurancePolicy" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Description"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <textarea rows="6" autocomplete="off"  class="form-control" asp-for="Description"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Customstyles
+{
+<link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
+<link rel="stylesheet" type="text/css" href="/assets/calender/kamadatepicker.min.css">
+
+}
+
+@section Script
+{
+
+<script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
+<script src="/assets/js/scripts/forms/select/form-select2.js"></script>
+<script src="/assets/calender/kamadatepicker.min.js"></script>
+<script src="/assets/js/scripts/num2persian-min.js"></script>
+
+
+
+
+<script>
+    function formatPerInstallment(input) {
+        var nStr = input.value + '';
+        nStr = nStr.replace(/\,/g, "");
+        x = nStr.split('.');
+        x1 = x[0];
+
+        $("#AmountPerInstallment").val(x1);
+        $("#ShowAmountPerInstallment").text(Num2persian(x1) + '  تومان');
+
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        input.value = x1 + x2;
+
+    }
+
+    function formatFirstYearPremiumAmount(input) {
+        var nStr = input.value + '';
+        nStr = nStr.replace(/\,/g, "");
+        x = nStr.split('.');
+        x1 = x[0];
+
+        $("#FirstYearPremiumAmount").val(x1);
+        $("#ShowFirstYearPremiumAmount").text(Num2persian(x1) + '  تومان');
+
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        input.value = x1 + x2;
+
+    } 
+    function formatCapitalDeathFirstYear(input) {
+        var nStr = input.value + '';
+        nStr = nStr.replace(/\,/g, "");
+        x = nStr.split('.');
+        x1 = x[0];
+
+        $("#CapitalDeathFirstYear").val(x1);
+        $("#ShowCapitalDeathFirstYear").text(Num2persian(x1) + '  تومان');
+
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        input.value = x1 + x2;
+
+    }
+
+
+    function filterChars(evt) {
+        let key = evt.key;
+        if (key >= "0" && key <= "9") {
+            return;
+        }
+        evt.preventDefault();
+    }
+
+
+    window.addEventListener("load", e => {
+        document.getElementById("NumberPerInstallment").addEventListener("keypress", filterChars);
+        document.getElementById("NumberFirstYearPremium").addEventListener("keypress", filterChars);
+        document.getElementById("NumberCapitalDeathFirstYear").addEventListener("keypress", filterChars);
+    });
+
+
+</script>
+
+<script>
+    kamaDatepicker('@nameof(Model.InstallmentStartDate)', {
+        nextButtonIcon: "/assets/calender/1.png"
+        , previousButtonIcon: "/assets/calender/2.png"
+        , forceFarsiDigits: false
+        , markToday: true
+        , markHolidays: true
+        , highlightSelectedDay: true
+        , sync: true
+        , gotoToday: true
+    });
+    kamaDatepicker('@nameof(Model.StartDateOfInsurancePolicy)', {
+        nextButtonIcon: "/assets/calender/1.png"
+        , previousButtonIcon: "/assets/calender/2.png"
+        , forceFarsiDigits: false
+        , markToday: true
+        , markHolidays: true
+        , highlightSelectedDay: true
+        , sync: true
+        , gotoToday: true
+    });
+</script>
+
+}

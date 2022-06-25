@@ -1,0 +1,94 @@
+﻿
+@using Crm.Domain.Convertors
+@using Crm.Application.Utilities
+@model List<Crm.Domain.ViewModel.Insured.InsuredInstallmentsViewModel>
+@{
+    ViewData["Title"] = "لیست اقساط بیمه شده";
+    int cnt = 1;
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Installment" asp-action="Index">لیست بیمه شده</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            لیست اقساط بیمه شده
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Zero configuration table -->
+<section id="basic-datatable">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body card-dashboard">
+                        <div class="table-responsive">
+                            <table class="table zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>مبلغ هر قسط</th>
+                                        <th>تاریخ هر قسط</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@cnt</td>
+                                            <td>@item.AmountPerInstallment.ToToman()</td>
+                                            <td>@item.DateInstallment.ToShamsi()</td>
+                                        </tr>
+                                        cnt++;
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Zero configuration table -->
+
+
+
+
+
+
+@section Customstyles
+{
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/css/tables/datatable/datatables.min.css">
+}
+
+
+@section Script
+{
+    <script src="/assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="/assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="/assets/js/scripts/datatables/datatable.js"></script>
+}
+
+
+
+
+
