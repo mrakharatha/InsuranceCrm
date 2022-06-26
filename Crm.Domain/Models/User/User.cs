@@ -47,6 +47,8 @@ public class User
     public List<Installment.Installment>? Installments { get; set; }
     public List<TermInsurance>? TermInsurances { get; set; }
     public List<Insured>? Insureds { get; set; }
+    public List<Ratio>? Ratios { get; set; }
+
     #endregion
 
 }

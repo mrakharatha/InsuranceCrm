@@ -58,6 +58,13 @@
                         <a asp-controller="TermInsurance" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">مدت بیمه نامه</span></a>
                     </li>
                 } 
+                
+                @if (_permissionService.CheckPermission(40, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="Ratio" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">نسبت </span></a>
+                    </li>
+                } 
                
             </ul>
         </li>
