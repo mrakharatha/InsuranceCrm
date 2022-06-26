@@ -80,5 +80,7 @@ public class Insured
     public TermInsurance? TermInsurance { get; set; }
     public Insurance? Insurance { get; set; }
     public List<InsuredInstallment>? InsuredInstallments { get; set; }
+    public List<Introduced>? Introduceds { get; set; }
+
     #endregion
 }

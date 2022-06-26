@@ -100,6 +100,23 @@ namespace Crm.Mvc.Controllers
         }
 
 
+
+
+        #region Introduced
+
+        [PermissionChecker(49)]
+        public IActionResult Introduced(int id)
+        {
+            return View();
+        }
+
+
+        #endregion
+
+
+
+
+
         [HttpPost]
         public async Task<IActionResult> Data(DtParameters dtParameters)
         {

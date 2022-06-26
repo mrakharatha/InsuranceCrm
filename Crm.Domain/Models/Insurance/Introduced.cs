@@ -6,6 +6,7 @@ public class Introduced
 {
     [Key]
     public int IntroducedId { get; set; }
+    public int InsuredId { get; set; }
     public int UserId { get; set; }
 
 
@@ -49,6 +50,6 @@ public class Introduced
     public User.User? User { get; set; }
     public DegreeFamiliarity? DegreeFamiliarity { get; set; }
     public Ratio? Ratio { get; set; }
-
+    public Insured? Insured { get; set; }
     #endregion
 }
