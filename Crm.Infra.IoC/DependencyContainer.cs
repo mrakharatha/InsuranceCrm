@@ -51,6 +51,10 @@ public class DependencyContainer
 
         service.AddScoped<IDegreeFamiliarityService, DegreeFamiliarityService>();
         service.AddScoped<IDegreeFamiliarityRepository, DegreeFamiliarityRepository>();
+        
+
+        service.AddScoped<IIntroducedService, IntroducedService>();
+        service.AddScoped<IIntroducedRepository, IntroducedRepository>();
 
 
         service.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

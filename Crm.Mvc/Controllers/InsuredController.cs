@@ -17,8 +17,8 @@ namespace Crm.Mvc.Controllers
         private readonly ITermInsuranceService _termInsuranceService;
         private readonly IInsuranceService _insuranceService;
         private readonly ICustomerService _customerService;
-
-        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService, ICustomerService customerService)
+        private readonly IIntroducedService _introducedService;
+        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService, ICustomerService customerService, IIntroducedService introducedService)
         {
             _insuredService = insuredService;
             _permissionService = permissionService;
@@ -27,6 +27,7 @@ namespace Crm.Mvc.Controllers
             _termInsuranceService = termInsuranceService;
             _insuranceService = insuranceService;
             _customerService = customerService;
+            _introducedService = introducedService;
         }
 
         [PermissionChecker(36)]
@@ -107,7 +108,9 @@ namespace Crm.Mvc.Controllers
         [PermissionChecker(49)]
         public IActionResult Introduced(int id)
         {
-            return View();
+            ViewBag.InsuredId = id;
+            var introduceds = _introducedService.GetIntroducedsByInsuredId(id);
+            return View(introduceds);
         }
 
 
