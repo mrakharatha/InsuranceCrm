@@ -66,6 +66,7 @@ namespace Crm.Infra.Data.Seeders
                 new Permission(){PermissionId = 37,Title = "افزودن  بیمه شده",ParentId = 36},
                 new Permission(){PermissionId = 38,Title = "ویرایش  بیمه شده ",ParentId = 36},
                 new Permission(){PermissionId = 39,Title = "حذف  بیمه شده",ParentId = 36},
+                new Permission(){PermissionId = 48,Title = "مشاهده اقساط بیمه شده",ParentId = 36},
 
 
 
@@ -73,6 +74,18 @@ namespace Crm.Infra.Data.Seeders
                 new Permission(){PermissionId = 41,Title = "افزودن نسبت",ParentId = 40},
                 new Permission(){PermissionId = 42,Title = "ویرایش نسبت ",ParentId = 40},
                 new Permission(){PermissionId = 43,Title = "حذف نسبت",ParentId = 40},
+
+
+                new Permission(){PermissionId = 44,Title = "درجه آشنائیت",ParentId = 11},
+                new Permission(){PermissionId = 45,Title = "افزودن درجه آشنائیت",ParentId = 44},
+                new Permission(){PermissionId = 46,Title = "ویرایش درجه آشنائیت ",ParentId = 44},
+                new Permission(){PermissionId = 47,Title = "حذف درجه آشنائیت",ParentId = 44},
+
+                new Permission(){PermissionId = 49,Title = "معرفی شدگان",ParentId = 36},
+                new Permission(){PermissionId = 50,Title = "افزودن معرفی شده",ParentId = 49},
+                new Permission(){PermissionId = 51,Title = "ویرایش معرفی شده",ParentId = 49},
+                new Permission(){PermissionId = 52,Title = "حذف معرفی شده",ParentId = 49},
+
             });
         }
     }

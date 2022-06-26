@@ -39,6 +39,8 @@ public class ApplicationContext : DbContext
     public DbSet<Insurance> Insurance { get; set; }
     public DbSet<Insured> Insureds { get; set; }
     public DbSet<Ratio> Ratios { get; set; }
+    public DbSet<Introduced> Introduceds { get; set; }
+    public DbSet<DegreeFamiliarity> DegreeFamiliarities { get; set; }
     public DbSet<InsuredInstallment> InsuredInstallments { get; set; }
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Installment> Installments { get; set; }
@@ -78,6 +80,8 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<TermInsurance>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<Insured>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
         modelBuilder.Entity<Ratio>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
+        modelBuilder.Entity<DegreeFamiliarity>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
+        modelBuilder.Entity<Introduced>().HasQueryFilter(c => c.DeleteDate == null && c.UserId == userId);
 
     }
 

@@ -64,6 +64,12 @@
                     <li>
                         <a asp-controller="Ratio" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">نسبت </span></a>
                     </li>
+                }   
+                @if (_permissionService.CheckPermission(44, User.GetUserId()))
+                {
+                    <li>
+                        <a asp-controller="DegreeFamiliarity" asp-action="Index"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Apex">درجه آشنائیت </span></a>
+                    </li>
                 } 
                
             </ul>

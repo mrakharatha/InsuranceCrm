@@ -92,7 +92,7 @@ namespace Crm.Mvc.Controllers
         }
 
 
-
+        [PermissionChecker(48)]
         public IActionResult Installments(int id)
         {
             var installments = _insuredService.GetInsuredInstallmentsByInsuredId(id);

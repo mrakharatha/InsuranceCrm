@@ -48,7 +48,8 @@ public class User
     public List<TermInsurance>? TermInsurances { get; set; }
     public List<Insured>? Insureds { get; set; }
     public List<Ratio>? Ratios { get; set; }
-
+    public List<DegreeFamiliarity>? DegreeFamiliarities { get; set; }
+    public List<Introduced>? Introduceds { get; set; }
     #endregion
 
 }

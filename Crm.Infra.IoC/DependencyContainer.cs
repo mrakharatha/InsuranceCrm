@@ -47,6 +47,10 @@ public class DependencyContainer
 
         service.AddScoped<IRatioService, RatioService>();
         service.AddScoped<IRatioRepository, RatioRepository>();
+        
+
+        service.AddScoped<IDegreeFamiliarityService, DegreeFamiliarityService>();
+        service.AddScoped<IDegreeFamiliarityRepository, DegreeFamiliarityRepository>();
 
 
         service.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

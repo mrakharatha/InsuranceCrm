@@ -2,10 +2,10 @@
 
 namespace Crm.Domain.Models.Insurance;
 
-public class Ratio
+public class DegreeFamiliarity
 {
     [Key]
-    public int RatioId { get; set; }
+    public int DegreeFamiliarityId { get; set; }
 
     public int UserId { get; set; }
 

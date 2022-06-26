@@ -4,6 +4,7 @@ using Crm.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crm.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220626134539_AddTblDegreeFamiliarity")]
+    partial class AddTblDegreeFamiliarity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3199,58 +3201,6 @@ namespace Crm.Infra.Data.Migrations
                     b.ToTable("InsuredInstallments");
                 });
 
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.Introduced", b =>
-                {
-                    b.Property<int>("IntroducedId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IntroducedId"), 1L, 1);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DegreeFamiliarityId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RatioId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IntroducedId");
-
-                    b.HasIndex("DegreeFamiliarityId");
-
-                    b.HasIndex("RatioId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Introduceds");
-                });
-
             modelBuilder.Entity("Crm.Domain.Models.Insurance.Ratio", b =>
                 {
                     b.Property<int>("RatioId")
@@ -3653,12 +3603,6 @@ namespace Crm.Infra.Data.Migrations
                         },
                         new
                         {
-                            PermissionId = 48,
-                            ParentId = 36,
-                            Title = "مشاهده اقساط بیمه شده"
-                        },
-                        new
-                        {
                             PermissionId = 40,
                             ParentId = 11,
                             Title = "نسبت"
@@ -3704,30 +3648,6 @@ namespace Crm.Infra.Data.Migrations
                             PermissionId = 47,
                             ParentId = 44,
                             Title = "حذف درجه آشنائیت"
-                        },
-                        new
-                        {
-                            PermissionId = 49,
-                            ParentId = 36,
-                            Title = "معرفی شدگان"
-                        },
-                        new
-                        {
-                            PermissionId = 50,
-                            ParentId = 49,
-                            Title = "افزودن معرفی شده"
-                        },
-                        new
-                        {
-                            PermissionId = 51,
-                            ParentId = 49,
-                            Title = "ویرایش معرفی شده"
-                        },
-                        new
-                        {
-                            PermissionId = 52,
-                            ParentId = 49,
-                            Title = "حذف معرفی شده"
                         });
                 });
 
@@ -4000,33 +3920,6 @@ namespace Crm.Infra.Data.Migrations
                     b.Navigation("Insured");
                 });
 
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.Introduced", b =>
-                {
-                    b.HasOne("Crm.Domain.Models.Insurance.DegreeFamiliarity", "DegreeFamiliarity")
-                        .WithMany("Introduceds")
-                        .HasForeignKey("DegreeFamiliarityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Crm.Domain.Models.Insurance.Ratio", "Ratio")
-                        .WithMany("Introduceds")
-                        .HasForeignKey("RatioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Crm.Domain.Models.User.User", "User")
-                        .WithMany("Introduceds")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("DegreeFamiliarity");
-
-                    b.Navigation("Ratio");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Crm.Domain.Models.Insurance.Ratio", b =>
                 {
                     b.HasOne("Crm.Domain.Models.User.User", "User")
@@ -4138,11 +4031,6 @@ namespace Crm.Infra.Data.Migrations
                     b.Navigation("Insureds");
                 });
 
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.DegreeFamiliarity", b =>
-                {
-                    b.Navigation("Introduceds");
-                });
-
             modelBuilder.Entity("Crm.Domain.Models.Insurance.Insurance", b =>
                 {
                     b.Navigation("Insureds");
@@ -4151,11 +4039,6 @@ namespace Crm.Infra.Data.Migrations
             modelBuilder.Entity("Crm.Domain.Models.Insurance.Insured", b =>
                 {
                     b.Navigation("InsuredInstallments");
-                });
-
-            modelBuilder.Entity("Crm.Domain.Models.Insurance.Ratio", b =>
-                {
-                    b.Navigation("Introduceds");
                 });
 
             modelBuilder.Entity("Crm.Domain.Models.Insurance.TermInsurance", b =>
@@ -4198,8 +4081,6 @@ namespace Crm.Infra.Data.Migrations
                     b.Navigation("Insurances");
 
                     b.Navigation("Insureds");
-
-                    b.Navigation("Introduceds");
 
                     b.Navigation("MaritalStatus");
 

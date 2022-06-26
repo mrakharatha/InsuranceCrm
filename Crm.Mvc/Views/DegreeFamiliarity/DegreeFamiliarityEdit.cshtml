@@ -1,0 +1,83 @@
+﻿@using Crm.Domain.Models.Permissions
+@using Crm.Application.Utilities
+@model Crm.Domain.Models.Insurance.DegreeFamiliarity
+@{
+    ViewData["Title"] = "ویرایش درجه آشنائیت";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-12 mb-2 mt-1">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb p-0 mb-0">
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Home" asp-action="Index"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="DegreeFamiliarity" asp-action="Index" >لیست درجه آشنائیت</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="#">ویرایش درجه آشنائیت</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12 col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">ویرایش درجه آشنائیت</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form class="form form-vertical" method="post">
+                    <input type="hidden" asp-for="DegreeFamiliarityId"/>
+                    <input type="hidden" asp-for="UserId"/>
+                    <input type="hidden" asp-for="CreateDate"/>
+
+                    <div class="form-body">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="Title"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" class="form-control" asp-for="Title">
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="Code"></label>
+                                    <div class="position-relative has-icon-left">
+                                        <input autocomplete="off" type="text" class="form-control" asp-for="Code">
+                                        <span asp-validation-for="Code" class="text-danger"></span>
+
+                                    
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1">ثبت</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
