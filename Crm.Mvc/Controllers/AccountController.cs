@@ -78,10 +78,44 @@ namespace Crm.Mvc.Controllers
         }
 
 
+        #region ChangePassword
+        [PermissionChecker(16)]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordViewModel change)
+        {
+
+            if (!ModelState.IsValid)
+                return View(change);
+
+            int currentUserId = User.GetUserId();
+
+
+            if (!_userService.CompareOldPassword(currentUserId, change.OldPassword))
+            {
+                ModelState.AddModelError("OldPassword", "کلمه عبور فعلی صحیح نمی باشد");
+                return View(change);
+            }
+
+            _userService.ChangeUserPassword(currentUserId, change.Password);
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        #endregion
+
+         
         [Route("Permission")]
         public IActionResult Permission()
         {
             return View();
         }
+
+
+
     }
 }
