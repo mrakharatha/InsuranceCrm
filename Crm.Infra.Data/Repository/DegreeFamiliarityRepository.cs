@@ -49,7 +49,7 @@ public class DegreeFamiliarityRepository: IDegreeFamiliarityRepository
 
     }
 
-    public List<SelectListItem> GetDegreeFamiliarity()
+    public List<SelectListItem> GetDegreeFamiliarities()
     {
         return _context.DegreeFamiliarities
             .OrderByDescending(x => x.DegreeFamiliarityId)

@@ -24,4 +24,21 @@ public class IntroducedRepository: IIntroducedRepository
             .Include(x => x.DegreeFamiliarity)
             .ToList();
     }
+
+    public void AddIntroduced(Introduced introduced)
+    {
+        _context.Add(introduced);
+        _context.SaveChanges();
+    }
+
+    public Introduced? GetIntroducedByIntroducedId(int introducedId)
+    {
+        return _context.Introduceds.Find(introducedId);
+    }
+
+    public void UpdateIntroduced(Introduced introduced)
+    {
+        _context.Update(introduced);
+        _context.SaveChanges();
+    }
 }

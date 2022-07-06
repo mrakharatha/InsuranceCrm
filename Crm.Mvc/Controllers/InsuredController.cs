@@ -1,6 +1,7 @@
 ﻿using Crm.Application.Interfaces;
 using Crm.Application.Security;
 using Crm.Application.Utilities;
+using Crm.Domain.Models.Insurance;
 using Crm.Domain.ViewModel.DataTable;
 using Crm.Domain.ViewModel.Insured;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,9 @@ namespace Crm.Mvc.Controllers
         private readonly IInsuranceService _insuranceService;
         private readonly ICustomerService _customerService;
         private readonly IIntroducedService _introducedService;
-        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService, ICustomerService customerService, IIntroducedService introducedService)
+        private readonly IRatioService _ratioService;
+        private readonly IDegreeFamiliarityService _degreeFamiliarityService;
+        public InsuredController(IInsuredService insuredService, IPermissionService permissionService, IInstallmentService installmentService, IPaymentMethodService paymentMethodService, ITermInsuranceService termInsuranceService, IInsuranceService insuranceService, ICustomerService customerService, IIntroducedService introducedService, IDegreeFamiliarityService degreeFamiliarityService, IRatioService ratioService)
         {
             _insuredService = insuredService;
             _permissionService = permissionService;
@@ -28,6 +31,8 @@ namespace Crm.Mvc.Controllers
             _insuranceService = insuranceService;
             _customerService = customerService;
             _introducedService = introducedService;
+            _degreeFamiliarityService = degreeFamiliarityService;
+            _ratioService = ratioService;
         }
 
         [PermissionChecker(36)]
@@ -113,7 +118,65 @@ namespace Crm.Mvc.Controllers
             return View(introduceds);
         }
 
+        [PermissionChecker(50)]
+        public IActionResult IntroducedCreate(int id)
+        {
+            ViewBag.InsuredId = id;
+            GetDataIntroduced();
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult IntroducedCreate(Introduced introduced)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.InsuredId = introduced.InsuredId;
+                GetDataIntroduced();
+                return View(introduced);
+            }
+
+            _introducedService.AddIntroduced(introduced);
+
+            return RedirectToAction("Introduced", new {id = introduced.InsuredId});
+        }
+
+
+        [PermissionChecker(51)]
+        public IActionResult IntroducedEdit(int id,int insuredId)
+        {
+            var introduced = _introducedService.GetIntroducedByIntroducedId(id);
+
+            if (introduced == null)
+                return RedirectToAction("Introduced", new { id = insuredId });
+
+            GetDataIntroduced();
+            return View(introduced);
+        }
+
+        [HttpPost]
+        public IActionResult IntroducedEdit(Introduced introduced)
+        {
+            if (!ModelState.IsValid)
+            {
+                GetDataIntroduced();
+                return View(introduced);
+            }
+
+            _introducedService.UpdateIntroduced(introduced);
+            return RedirectToAction("Introduced",new {id=introduced.InsuredId});
+        }
+
+
+        public bool IntroducedDelete(int id)
+        {
+            if (!_permissionService.CheckPermission(52, User.GetUserId()))
+                return false;
+
+            _introducedService.DeleteIntroduced(id, User.GetUserId());
+
+            return true;
+        }
         #endregion
 
 
@@ -139,5 +202,13 @@ namespace Crm.Mvc.Controllers
             ViewData["Insurance"] = new SelectList(_insuranceService.GetInsurance(), "Value", "Text");
             ViewData["Customer"] = new SelectList(_customerService.GetCustomer(), "Value", "Text");
         }
+
+        public void GetDataIntroduced()
+        {
+            ViewData["DegreeFamiliarity"] = new SelectList(_degreeFamiliarityService.GetDegreeFamiliarities(), "Value", "Text");
+            ViewData["Ratio"] = new SelectList(_ratioService.GetRatios(), "Value", "Text");
+        }
+ 
+   
     }
 }

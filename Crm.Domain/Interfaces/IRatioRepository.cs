@@ -11,5 +11,5 @@ public interface IRatioRepository
     void AddRatio(Ratio ratio);
     void UpdateRatio(Ratio ratio);
     bool CheckCodeRatio(int ratioId, int code);
-    List<SelectListItem> GetRatio();
+    List<SelectListItem> GetRatios();
 }

@@ -12,5 +12,5 @@ public interface IRatioService
     void UpdateRatio(Ratio ratio);
     void DeleteRatio(int ratioId);
     bool CheckCodeRatio(int ratioId, int code);
-    List<SelectListItem> GetRatio();
+    List<SelectListItem> GetRatios();
 }

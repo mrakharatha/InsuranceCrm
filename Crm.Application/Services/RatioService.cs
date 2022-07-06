@@ -52,9 +52,9 @@ public class RatioService: IRatioService
         return _ratioRepository.CheckCodeRatio(ratioId, code);
     }
 
-    public List<SelectListItem> GetRatio()
+    public List<SelectListItem> GetRatios()
     {
-        var result = _ratioRepository.GetRatio();
+        var result = _ratioRepository.GetRatios();
 
         var items = new List<SelectListItem>()
         {

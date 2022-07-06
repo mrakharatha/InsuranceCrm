@@ -52,9 +52,9 @@ public class DegreeFamiliarityService: IDegreeFamiliarityService
         return _degreeFamiliarityRepository.CheckCodeDegreeFamiliarity(degreeFamiliarityId, code);
     }
 
-    public List<SelectListItem> GetDegreeFamiliarity()
+    public List<SelectListItem> GetDegreeFamiliarities()
     {
-        var result = _degreeFamiliarityRepository.GetDegreeFamiliarity();
+        var result = _degreeFamiliarityRepository.GetDegreeFamiliarities();
 
         var items = new List<SelectListItem>()
         {

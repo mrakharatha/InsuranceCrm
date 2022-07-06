@@ -12,5 +12,5 @@ public interface IDegreeFamiliarityService
     void UpdateDegreeFamiliarity(DegreeFamiliarity degreeFamiliarity);
     void DeleteDegreeFamiliarity(int degreeFamiliarityId);
     bool CheckCodeDegreeFamiliarity(int degreeFamiliarityId, int code);
-    List<SelectListItem> GetDegreeFamiliarity();
+    List<SelectListItem> GetDegreeFamiliarities();
 }

@@ -72,7 +72,7 @@
                                                     <span style="padding: 0 20px " class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
                                                     </span>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" asp-controller="Insured" asp-action="IntroducedEdit"  asp-route-id="@item.IntroducedId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
+                                                        <a class="dropdown-item" asp-controller="Insured" asp-action="IntroducedEdit"  asp-route-id="@item.IntroducedId" asp-route-insuredId="@item.InsuredId"><i class="bx bx-edit-alt mr-1"></i> ویرایش</a>
                                                         <a class="dropdown-item" onclick="DeleteIntroduced(@item.IntroducedId)"><i class="bx bx-trash mr-1"></i> حذف</a>
                                                     </div>
                                                 </div>
@@ -130,7 +130,7 @@
             buttonsStyling: false,
         }).then(function (result) {
             if (result.value) {
-                $.get("/Introduced/Delete/" + id,
+                $.get("/Insured/IntroducedDelete/" + id,
                     function (data)
                     {
                         if (data)
@@ -140,7 +140,7 @@
                             Swal.fire({
                                 type: "success",
                                 title: 'حذف شد!',
-                                text: 'نسبت  با موفقیت حذف شد',
+                                text: 'معرفی شده  با موفقیت حذف شد',
                                 confirmButtonClass: 'btn btn-success',
                                 confirmButtonText: 'باشه',
                             });

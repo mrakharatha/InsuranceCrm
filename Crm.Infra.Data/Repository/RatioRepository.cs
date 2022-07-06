@@ -49,7 +49,7 @@ public class RatioRepository: IRatioRepository
 
     }
 
-    public List<SelectListItem> GetRatio()
+    public List<SelectListItem> GetRatios()
     {
         return _context.Ratios
             .OrderByDescending(x => x.RatioId)

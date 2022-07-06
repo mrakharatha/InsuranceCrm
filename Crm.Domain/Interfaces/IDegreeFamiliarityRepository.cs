@@ -11,5 +11,5 @@ public interface IDegreeFamiliarityRepository
     void AddDegreeFamiliarity(DegreeFamiliarity degreeFamiliarity);
     void UpdateDegreeFamiliarity(DegreeFamiliarity degreeFamiliarity);
     bool CheckCodeDegreeFamiliarity(int degreeFamiliarityId, int code);
-    List<SelectListItem> GetDegreeFamiliarity();
+    List<SelectListItem> GetDegreeFamiliarities();
 }
